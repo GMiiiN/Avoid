@@ -24,7 +24,6 @@ public class AGame extends JFrame{
         setVisible(true);
 
         addKeyListener(new KeyListener());
-        game.start();
     }
 
     class KeyListener extends KeyAdapter{
