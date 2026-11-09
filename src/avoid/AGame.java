@@ -1,4 +1,4 @@
-package Ddong;
+package avoid;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -6,38 +6,25 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+// 창 만들고 연결하고 담기.
+public class AGame extends JFrame{
 
-public class DdongGame extends JFrame{
-    private Image bufferImage;
-    private Graphics screenGraphic;
+    private Game game = new Game(); // 규칙 객체 생성
 
-    private Image mainScreen = new ImageIcon("src/images/background.jpg").getImage();
+    public AGame(){
+        GamePanel gamePanel = new GamePanel(game);
 
-    private Game game=new Game();
-
-    public DdongGame(){
-        setTitle("똥 피하기 게임"); //타이틀 이름
-        //setUndecorated(true);
-        setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);	//스크린 크기 설정
+        setTitle("치이카와의 장애물 피하기"); //타이틀 이름
         setResizable(false);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        add(gamePanel);
+        pack();
+        setLocationRelativeTo(null);
         setVisible(true);
-        setLayout(null);
+
         addKeyListener(new KeyListener());
         game.start();
-    }
-    public void paint(Graphics g) {
-        bufferImage=createImage(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
-        screenGraphic=bufferImage.getGraphics();
-        screenDraw(screenGraphic);
-        g.drawImage(bufferImage,0,0,null);
-    }
-
-    public void screenDraw(Graphics g) {
-        g.drawImage(mainScreen,0,0,null);
-        game.gameDraw(g);
-        this.repaint();
     }
 
     class KeyListener extends KeyAdapter{
