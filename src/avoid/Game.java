@@ -7,9 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 // 게임 규칙
-public class Game extends Thread {
-    private int delay = 20;
-    private long pretime;
+public class Game {
+
     private int cnt;
     private int score;
 
@@ -26,32 +25,20 @@ public class Game extends Thread {
     private ArrayList<Avoid> enemyList=new ArrayList<Avoid>();
 
     private Avoid enemy;
-    @Override
-    public void run() {
 
+    public Game(){
         reset();
-        while (true) {
-            while(!isOver) {
-                pretime = System.currentTimeMillis();
-                if (System.currentTimeMillis() - pretime < delay) {
-                    try {
-                        Thread.sleep(delay - System.currentTimeMillis() + pretime);
-                        enemyAppearProcess();
-                        enemyMoveProcess();
-                        KeyProcess();
-                        cnt++;
-                        score++;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            try {
-                Thread.sleep(100);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
+    }
+
+    public void update(){
+        if(isOver){
+            return;
         }
+        enemyAppearProcess();
+        enemyMoveProcess();
+        KeyProcess();
+        cnt++;
+        score++;
     }
 
     public void reset() {	//다시하기 기능
@@ -77,7 +64,9 @@ public class Game extends Thread {
 
     private void enemyAppearProcess() {
         if(cnt%7==0) {
-            enemy=new Avoid((int)(Math.random()*441), 0);
+            enemy=new Avoid(0, 0);
+            int maxX = Main.SCREEN_WIDTH - enemy.width;
+            enemy.x = (int) (Math.random() * (maxX + 1));
             enemyList.add(enemy);
 
 
