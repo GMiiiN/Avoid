@@ -1,17 +1,17 @@
-package Ddong;
-//똥 클래스
+package avoid;
+//장애물 클래스
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Ddong {
+public class Avoid {
     Image image=new ImageIcon("src/images/ddong.png").getImage();
     int x,y;
     int width=image.getWidth(null);
     int height=image.getHeight(null);
 
 
-    public Ddong(int x,int y) {
+    public Avoid(int x, int y) {
         this.x=x;
         this.y=y;
     }

@@ -1,4 +1,4 @@
-package Ddong;
+package avoid;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -6,7 +6,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-
+// 게임 규칙
 public class Game extends Thread {
     private int delay = 20;
     private long pretime;
@@ -23,9 +23,9 @@ public class Game extends Thread {
     private boolean up, down, left, right;
     private boolean isOver;
 
-    private ArrayList<Ddong> enemyList=new ArrayList<Ddong>();
+    private ArrayList<Avoid> enemyList=new ArrayList<Avoid>();
 
-    private Ddong enemy;
+    private Avoid enemy;
     @Override
     public void run() {
 
@@ -77,7 +77,7 @@ public class Game extends Thread {
 
     private void enemyAppearProcess() {
         if(cnt%7==0) {
-            enemy=new Ddong((int)(Math.random()*441), 0);
+            enemy=new Avoid((int)(Math.random()*441), 0);
             enemyList.add(enemy);
 
 
@@ -156,5 +156,4 @@ public class Game extends Thread {
         // TODO Auto-generated method stub
         return isOver;
     }
-
 }

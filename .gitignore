@@ -4,3 +4,6 @@ out/
 .metadata/
 .DS_Store
 Thumbs.db
+.idea/
+*.iml
+classes/
