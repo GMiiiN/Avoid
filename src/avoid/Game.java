@@ -19,7 +19,6 @@ public class Game {
     private int playerHeight = player.getHeight(null);
     private int playerSpeed = 8;
 
-    private boolean up, down, left, right;
     private boolean isOver;
 
     private ArrayList<Avoid> enemyList=new ArrayList<Avoid>();
@@ -30,13 +29,13 @@ public class Game {
         reset();
     }
 
-    public void update(){
+    public void update(boolean left, boolean right){
         if(isOver){
             return;
         }
         enemyAppearProcess();
         enemyMoveProcess();
-        KeyProcess();
+        KeyProcess(left, right);
         cnt++;
         score++;
     }
@@ -51,11 +50,11 @@ public class Game {
         enemyList.clear();
 
     }
-    private void KeyProcess() {
-        if (up && playerY - playerSpeed > 0)
-            playerY -= playerSpeed;
-        if (down && playerY + playerHeight + playerSpeed < Main.SCREEN_HEIGHT)
-            playerY += playerSpeed;
+    private void KeyProcess(boolean left, boolean right) {
+//        if (up && playerY - playerSpeed > 0)
+//            playerY -= playerSpeed;
+//        if (down && playerY + playerHeight + playerSpeed < Main.SCREEN_HEIGHT)
+//            playerY += playerSpeed;
         if (left && playerX - playerSpeed > 0)
             playerX -= playerSpeed;
         if (right && playerX + playerWidth + playerSpeed < Main.SCREEN_WIDTH)
@@ -123,22 +122,6 @@ public class Game {
             enemy=enemyList.get(i);
             g.drawImage(enemy.image,enemy.x,enemy.y,null);
         }
-    }
-
-    /*	public void setUp(boolean up) {
-            this.up = up;
-        }
-
-        public void setDown(boolean down) {
-            this.down = down;
-        }
-    */
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
     }
 
     public boolean isOver() {
