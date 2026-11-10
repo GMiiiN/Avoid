@@ -12,17 +12,10 @@ public class Game {
     private int cnt;
     private int score;
 
-    private Image player = new ImageIcon("src/images/bate.png").getImage();
-
-    private int playerX, playerY;
-    private int playerWidth = player.getWidth(null);
-    private int playerHeight = player.getHeight(null);
-    private int playerSpeed = 8;
-
     private boolean isOver;
 
     private ArrayList<Avoid> enemyList=new ArrayList<Avoid>();
-
+    private Player player = new Player();
     private Avoid enemy;
 
     public Game(){
@@ -35,7 +28,7 @@ public class Game {
         }
         enemyAppearProcess();
         enemyMoveProcess();
-        KeyProcess(left, right);
+        player.move(left, right);
         cnt++;
         score++;
     }
@@ -44,21 +37,11 @@ public class Game {
         isOver=false;
         cnt = 0;
         score=0;
-        playerX = (Main.SCREEN_WIDTH - playerWidth) / 2;
-        playerY = (Main.SCREEN_HEIGHT - playerHeight) - 10;
-
+        player.resetPosition();
         enemyList.clear();
 
     }
     private void KeyProcess(boolean left, boolean right) {
-//        if (up && playerY - playerSpeed > 0)
-//            playerY -= playerSpeed;
-//        if (down && playerY + playerHeight + playerSpeed < Main.SCREEN_HEIGHT)
-//            playerY += playerSpeed;
-        if (left && playerX - playerSpeed > 0)
-            playerX -= playerSpeed;
-        if (right && playerX + playerWidth + playerSpeed < Main.SCREEN_WIDTH)
-            playerX += playerSpeed;
     }
 
     private void enemyAppearProcess() {
@@ -84,8 +67,8 @@ public class Game {
 	            enemyList.remove(enemy); //똥삭제
 	        }
 			*/
-            if (enemy.x+15<playerX+playerWidth&&enemy.x+enemy.width>playerX+15
-                    &&enemy.y<playerY+playerHeight-40&&enemy.y+enemy.height>playerY) //플레이어가 똥에 맞을시
+            if (enemy.x+15< player.getX()+player.getpWidth()&&enemy.x+enemy.width>player.getX()+15
+                    &&enemy.y<player.getY()+player.getpHeight()-40&&enemy.y+enemy.height>player.getY()) //플레이어가 똥에 맞을시
             {
                 enemyList.remove(enemy); //똥삭제
                 isOver=true;
@@ -97,7 +80,7 @@ public class Game {
 
 
     public void gameDraw(Graphics g) {
-        playerDraw(g);
+        player.draw(g);
         enemyDraw(g);
         infoDraw(g);
     }
@@ -111,10 +94,6 @@ public class Game {
             g.setFont(new Font("Arial",Font.BOLD,40));
             g.drawString("Press Enter to restart",40,200);
         }
-    }
-
-    public void playerDraw(Graphics g) {
-        g.drawImage(player, playerX, playerY, null);
     }
 
     public void enemyDraw(Graphics g) {
