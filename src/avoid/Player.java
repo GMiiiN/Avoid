@@ -5,11 +5,11 @@ import java.awt.*;
 
 // 플레이어 한명
 public class Player {
-    private Image player = new ImageIcon("src/images/bate.png").getImage();
-
+    private Image player = new ImageIcon("src/images/usagi_move.gif").getImage();
+    static final int SIZE = 80;
     private int x, y;
-    private int pWidth = player.getWidth(null);
-    private int pHeight = player.getHeight(null);
+    private int pWidth = SIZE;
+    private int pHeight = SIZE;
     private int pSpeed = 8;
 
     public void resetPosition(){
@@ -25,7 +25,7 @@ public class Player {
     }
 
     public void draw(Graphics g){
-        g.drawImage(player, x, y, null);
+        g.drawImage(player, x, y, SIZE, SIZE, null);
     }
 
     public Image getPlayer() {
