@@ -4,14 +4,15 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Avoid {
-    Image image=new ImageIcon("src/images/ddong.png").getImage();
+public class Obstacle {
+    public static final int SIZE = 50;
+    Image image=new ImageIcon("src/images/apple.png").getImage();
     int x,y;
-    int width=image.getWidth(null);
-    int height=image.getHeight(null);
+    int width=SIZE;
+    int height=SIZE;
 
 
-    public Avoid(int x, int y) {
+    public Obstacle(int x, int y) {
         this.x=x;
         this.y=y;
     }

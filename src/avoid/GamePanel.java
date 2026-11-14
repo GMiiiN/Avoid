@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 
 // 화면 + 입력 + 시계
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-    private Image background = new ImageIcon("").getImage(); // 배경
+    private Image background = new ImageIcon("src/images/background.jpg").getImage(); // 배경
     private Timer timer = new Timer(20, this);
     private Game game; // 게임 규칙
     private boolean[] keys = new boolean[256]; //키보드 상태표

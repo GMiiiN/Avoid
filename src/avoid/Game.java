@@ -2,10 +2,8 @@ package avoid;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 // 게임 규칙
 public class Game {
 
@@ -14,9 +12,9 @@ public class Game {
 
     private boolean isOver;
 
-    private ArrayList<Avoid> enemyList=new ArrayList<Avoid>();
+    private ArrayList<Obstacle> enemyList=new ArrayList<Obstacle>();
     private Player player = new Player();
-    private Avoid enemy;
+    private Obstacle enemy;
 
     public Game(){
         reset();
@@ -46,7 +44,7 @@ public class Game {
 
     private void enemyAppearProcess() {
         if(cnt%7==0) {
-            enemy=new Avoid(0, 0);
+            enemy=new Obstacle(0, 0);
             int maxX = Main.SCREEN_WIDTH - enemy.width;
             enemy.x = (int) (Math.random() * (maxX + 1));
             enemyList.add(enemy);
@@ -99,7 +97,7 @@ public class Game {
     public void enemyDraw(Graphics g) {
         for(int i=0;i<enemyList.size();i++) {
             enemy=enemyList.get(i);
-            g.drawImage(enemy.image,enemy.x,enemy.y,null);
+            g.drawImage(enemy.image,enemy.x,enemy.y,enemy.width, enemy.height,null);
         }
     }
 
