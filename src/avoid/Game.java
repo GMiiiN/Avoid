@@ -1,7 +1,5 @@
 package avoid;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 
 // 게임 규칙
@@ -30,7 +28,6 @@ public class Game {
         cnt++;
         score++;
     }
-
     public void reset() {	//다시하기 기능
         isOver=false;
         cnt = 0;
@@ -39,9 +36,6 @@ public class Game {
         enemyList.clear();
 
     }
-    private void KeyProcess(boolean left, boolean right) {
-    }
-
     private void enemyAppearProcess() {
         if(cnt%7==0) {
             enemy=new Obstacle(0, 0);
@@ -52,31 +46,17 @@ public class Game {
 
         }
     }
-
     private void enemyMoveProcess() {
         for(int i=0;i<enemyList.size();i++) {
             enemy=enemyList.get(i);
             enemy.move();
-
-			/*
-			if (enemy.x<playerX+playerWidth&&enemy.x+enemy.width>playerX&&
-					enemy.y<playerY+playerHeight&&enemy.y+enemy.height>playerY) //플레이어가 똥에 맞을시
-			{
-	            enemyList.remove(enemy); //똥삭제
-	        }
-			*/
-            if (enemy.x+15< player.getX()+player.getpWidth()&&enemy.x+enemy.width>player.getX()+15
-                    &&enemy.y<player.getY()+player.getpHeight()-40&&enemy.y+enemy.height>player.getY()) //플레이어가 똥에 맞을시
+            if (enemy.getBounds().intersects(player.getBounds())) //플레이어가 똥에 맞을시
             {
                 enemyList.remove(enemy); //똥삭제
                 isOver=true;
             }
-
-
         }
     }
-
-
     public void gameDraw(Graphics g) {
         player.draw(g);
         enemyDraw(g);
