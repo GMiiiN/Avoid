@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 public class Obstacle {
     public static final int SIZE = 50;
     private static final int HIT_MARGIN = 13;
-    Image image=new ImageIcon("src/images/apple.png").getImage();
+    static final Image image = new ImageIcon("src/images/apple.png").getImage();
     int x,y;
     int width=SIZE;
     int height=SIZE;
