@@ -1,6 +1,7 @@
 package avoid;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // 게임 규칙
 public class Game {
@@ -47,13 +48,17 @@ public class Game {
         }
     }
     private void enemyMoveProcess() {
-        for(int i=0;i<enemyList.size();i++) {
-            enemy=enemyList.get(i);
+        for(Iterator<Obstacle> it = enemyList.iterator(); it.hasNext();){
+            Obstacle enemy = it.next();
             enemy.move();
-            if (enemy.getBounds().intersects(player.getBounds())) //플레이어가 똥에 맞을시
-            {
-                enemyList.remove(enemy); //똥삭제
-                isOver=true;
+
+            if (enemy.y > Main.SCREEN_HEIGHT) {
+                it.remove();
+                continue;
+            }
+            if(enemy.getBounds().intersects(player.getBounds())){
+                it.remove();
+                isOver = true;
             }
         }
     }
@@ -77,7 +82,7 @@ public class Game {
     public void enemyDraw(Graphics g) {
         for(int i=0;i<enemyList.size();i++) {
             enemy=enemyList.get(i);
-            g.drawImage(enemy.image,enemy.x,enemy.y,enemy.width, enemy.height,null);
+            g.drawImage(Obstacle.image,enemy.x,enemy.y,enemy.width, enemy.height,null);
         }
     }
 
