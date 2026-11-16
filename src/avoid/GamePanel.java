@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 System.exit(0);
                 break;
             case KeyEvent.VK_ENTER:
-                if(game.isOver()) game.reset();
+                if(game.isOver()) game.reset(Game.TEST_SEED);
                 break;
         }
     }

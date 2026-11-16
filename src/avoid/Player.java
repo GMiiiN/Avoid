@@ -19,9 +19,16 @@ public class Player {
 
     private int pSpeed = 8;
 
-    public void resetPosition(){
+    static final int MAX_HP = 3; // 최대체력
+    static final int INVINCIBLE_TICKS = 50;
+    private int hp;
+    private int invincibleTicks;
+
+    public void reset(){
         x = (Main.SCREEN_WIDTH - pWidth) / 2;
         y = (Main.SCREEN_HEIGHT - pHeight) - 10;
+        hp = MAX_HP;
+        invincibleTicks = 0;
     }
 
     public void move(boolean left, boolean right){
@@ -33,9 +40,13 @@ public class Player {
             x -= pSpeed;
         if (right && x + pWidth + pSpeed < Main.SCREEN_WIDTH)
             x += pSpeed;
+        if(invincibleTicks > 0){
+            invincibleTicks--;
+        }
     }
 
     public void draw(Graphics g){
+        if (isInvincible() && (invincibleTicks / 5) % 2 == 0) return;
         Image img = moving ? walkImg : standImg;
         if (facingRight)
             g.drawImage(img, x + SIZE, y, -SIZE, SIZE, null);
@@ -45,27 +56,40 @@ public class Player {
     public Rectangle getBounds(){
         return new Rectangle(x + HIT_LEFT, y + HIT_TOP, HIT_WIDTH, HIT_HEIGHT);
     }
+    // 피격 범위 판정
+    public void hit(){ // 피격
+        if(hp > 0){
+            hp--;
+            invincibleTicks = INVINCIBLE_TICKS;
+        }
+    }
+    public boolean isInvincible(){ //무적판정 틱 / true면 무적, false면 무적 끝
+        return invincibleTicks > 0;
+    }
+    public boolean isDead(){ //사망판정
+        return hp <= 0;
+    }
+    public int getHp() {
+        return hp;
+    }
 
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
     }
     public int getpWidth() {
         return pWidth;
     }
-
     public int getpHeight() {
         return pHeight;
     }
-
     public int getpSpeed() {
         return pSpeed;
     }
-
     public void setpSpeed(int pSpeed) {
         this.pSpeed = pSpeed;
     }
+
 }
