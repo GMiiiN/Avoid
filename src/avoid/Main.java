@@ -6,7 +6,6 @@ public class Main {
     public static final int SCREEN_HEIGHT=740;	//스크린 세로크기
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        new AGame();
+        javax.swing.SwingUtilities.invokeLater(AGame::new);
     }
 }

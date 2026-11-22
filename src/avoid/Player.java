@@ -5,8 +5,8 @@ import java.awt.*;
 
 // 플레이어 한명
 public class Player {
-    private Image walkImg = new ImageIcon("src/images/usagi_move.gif").getImage();
-    private Image standImg = new ImageIcon("src/images/usagi.png").getImage();
+    private Image walkImg = CharacterType.IVORY.moveImg;
+    private Image standImg = CharacterType.IVORY.standImg;
 
     private boolean moving = false, facingRight = true; // 원본 그림이 왼쪽을 보고 있음.
 
@@ -52,6 +52,19 @@ public class Player {
             g.drawImage(img, x + SIZE, y, -SIZE, SIZE, null);
         else
             g.drawImage(img, x, y, SIZE, SIZE, null);
+    }
+    // 자리 번호에 맞는 캐릭터로 바꾸기 (1번 하얀색, 2번 아이보리)
+    public void setCharacter(CharacterType type){
+        walkImg = type.moveImg;
+        standImg = type.standImg;
+    }
+
+    // 상대 캐릭터: 받은 x좌표로 옮기고, 움직인 방향으로 얼굴을 돌림
+    public void setRemoteX(int nx){
+        moving = nx != x;
+        if (nx > x) facingRight = true;
+        if (nx < x) facingRight = false;
+        x = nx;
     }
     public Rectangle getBounds(){
         return new Rectangle(x + HIT_LEFT, y + HIT_TOP, HIT_WIDTH, HIT_HEIGHT);
