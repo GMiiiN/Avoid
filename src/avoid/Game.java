@@ -76,17 +76,27 @@ public class Game {
             }
         }
     }
-    public void gameDraw(Graphics g) { // 화면에는 나만 그림 (상대 위치는 받기만 함)
+    public void gameDraw(Graphics g) { // 화면에 나와 상대방(흐리게) 그림.
+        drawOpponent(g);
         player.draw(g);
         enemyDraw(g);
         infoDraw(g);
+    }
+    private void drawOpponent(Graphics g){ // 상대 그리기.
+        if(!hasOpponentPos)
+            return;
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        opponent.draw(g2);
+        g2.dispose();
     }
 
     public void infoDraw(Graphics g) {	//점수표와 게임이 끝났을때 안내표
         g.setColor(Color.RED);
         g.setFont(new Font("Arial",Font.BOLD,20));
-        drawCentered(g, "SCORE : "+score, 60);
-        g.drawString("HP : " + player.getHp(), Main.SCREEN_WIDTH - 80, 60);
+        drawCentered(g, "SCORE : "+score, 60); // 점수
+        g.drawString("HP : " + player.getHp(), Main.SCREEN_WIDTH - 150, 60); // 본인 HP
+        g.drawString("Rival HP : " + opponentHp, Main.SCREEN_WIDTH - 150, 80); // 상대방 HP
         if(isOver) { // 목숨 3개를 다 잃으면 끝 (Enter → 대기실)
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial",Font.BOLD,40));
